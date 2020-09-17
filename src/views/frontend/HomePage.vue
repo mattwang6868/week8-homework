@@ -132,6 +132,43 @@
         </div>
       </div>
     </div>
+    <div class="bg-light">
+      <div class="container py-5 mt-5 bg-light">
+      <h3>熱銷樂器</h3>
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-4 ">
+          <div class="card m-auto rounded-0 bg-light " style="width: 18rem;">
+            <img src="https://images.unsplash.com/photo-1580745089072-032cbde08507?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjF9&auto=format&fit=crop&w=334&q=80" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title">Taylor Acoustic Guitar</h5>
+              <p class="card-text">NT$18000</p>
+              <button class="btn btn-outline-dark" @click="goProductPage('LcqIUGf0KHNwOWdhtg2rHPeqzU7juEMuIx2YZVPnT536IUMVJSCec0K1ciO7cCht')">了解更多</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card m-auto rounded-0  bg-light " style="width: 18rem;">
+            <img src="https://images.unsplash.com/photo-1520166012956-add9ba0835cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title">Fender Electric Guitar</h5>
+              <p class="card-text">NT$30000</p>
+              <button  class="btn btn-outline-dark" @click="goProductPage('JAiHqyWnAXZPOq6Hr3Lz1Td9vFOef0dlUVvNOFMt12QIfIfJcnRITIiC1dD5FlCw')">了解更多</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card m-auto rounded-0  bg-light " style="width: 18rem;">
+            <img src="https://images.unsplash.com/photo-1588449668365-d15e397f6787?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" class="card-img-top" alt="">
+            <div class="card-body">
+              <h5 class="card-title">Taylor Acoustic Guitar</h5>
+              <p class="card-text">NT$42000</p>
+              <button  class="btn btn-outline-dark" @click="goProductPage('fFklve19i9glrAapiVAAiQr4KpyVngPDMBL7g8mzB9fLRMJxaQz41A67WoT2aTEZ')">了解更多</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -148,6 +185,10 @@ export default {
     },
     goGuitarLessonPage () {
       this.$router.push('/lesson')
+    },
+    goProductPage (id) {
+      this.$route.params.id = id
+      this.$router.push(`/detail/${id}`)
     }
   }
 }
