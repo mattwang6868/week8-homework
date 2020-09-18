@@ -74,6 +74,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -89,6 +90,9 @@ export default {
     }
   },
   methods: {
+    getCart () {
+      this.$store.dispatch('getCart')
+    },
     updateNum (state) {
       switch (state) {
         case 'plus':
@@ -108,6 +112,7 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`
       this.$http.post(url, cart).then(res => {
         this.status.loadingItem = ''
+        this.getCart()
         this.$bus.$emit('message:push', '已加入購物車', 'success')
       }).catch((error) => {
         this.status.loadingItem = ''
@@ -116,14 +121,17 @@ export default {
       })
     }
   },
+  computed: {
+    ...mapGetters(['cartlength'])
+  },
   created () {
-    this.isLoading = true
+    this.$store.dispatch('updateLoading', true)
     const id = this.$route.params.id
     this.$http.get(` ${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/product/${id}`)
       .then(res => {
         this.product = res.data.data
         this.imageUrl = res.data.data.imageUrl
-        this.isLoading = false
+        this.$store.dispatch('updateLoading', false)
       })
   }
 }

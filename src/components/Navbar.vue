@@ -23,9 +23,32 @@
             </ul>
           </div>
           <div class="d-flex">
-            <router-link class="nav-link text-white" to="/cart"><i class="fas fa-shopping-cart"></i></router-link>
+            <router-link class="nav-link text-white" to="/cart"><i class="fas fa-shopping-cart position-absolute"></i><span class="badge badge-pill badge-info position-relative" style="top:-12px;right:-15px;">{{cartlength}}</span></router-link>
           </div>
         </nav>
     </div>
   </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+    getCart () {
+      this.$store.dispatch('getCart')
+    }
+  },
+  computed: {
+    ...mapGetters(['cart', 'cartlength'])
+  },
+  created () {
+    this.$store.dispatch('getCart')
+  }
+}
+</script>

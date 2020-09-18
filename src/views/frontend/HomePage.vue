@@ -191,5 +191,6 @@ export default {
       this.$router.push(`/detail/${id}`)
     }
   }
+
 }
 </script>

@@ -189,8 +189,6 @@ export default {
   data () {
     return {
       isLoading: false,
-      cart: {},
-      cartTotal: 0,
       coupon: {},
       coupon_code: '',
       couponPercent: '',
@@ -209,19 +207,8 @@ export default {
     }
   },
   methods: {
-    getImage () {
-    },
     getCart () {
-      this.isLoading = true
-      this.cartTotal = 0
-      const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping`
-      this.$http.get(url).then(res => {
-        this.cart = res.data.data
-        this.cart.forEach((item) => {
-          this.cartTotal += item.product.price * item.quantity
-        })
-        this.isLoading = false
-      })
+      this.$store.dispatch('getCart')
     },
     quantityUpdate (num, id) {
       if (num <= 0) return
@@ -233,7 +220,7 @@ export default {
           quantity: num
         }
         this.$http.patch(url, cart).then(res => {
-          this.getCart()
+          this.$store.dispatch('getCart')
           this.isLoading = false
         })
       }
@@ -243,7 +230,7 @@ export default {
       this.status.loadingItem = id
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping/${id}`
       this.$http.delete(url).then(res => {
-        this.getCart()
+        this.$store.dispatch('getCart')
         this.$bus.$emit('message:push', '刪除成功', 'success')
         this.isLoading = false
       })
@@ -274,6 +261,14 @@ export default {
         }
         this.isLoading = false
       })
+    }
+  },
+  computed: {
+    cart () {
+      return this.$store.state.cart
+    },
+    cartTotal () {
+      return this.$store.state.cartTotal
     }
   },
   created () {
