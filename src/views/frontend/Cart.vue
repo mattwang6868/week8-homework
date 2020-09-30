@@ -37,7 +37,7 @@
                       </div>
                     </div>
                   </td>
-                  <td class="border-0 align-middle"><p class="mb-0 ml-auto">{{item.product.price}}</p></td>
+                  <td class="border-0 align-middle"><p class="mb-0 ml-auto">{{item.product.price | money}}</p></td>
                   <td class="border-0 align-middle">
                     <button class="btn btn-outline-dark border-0 py-2" type="button" @click="removeCartItem(item.product.id)">
                       <i class="fas fa-times"></i>
@@ -62,17 +62,17 @@
                 <tbody>
                   <tr>
                     <th scope="row" class="border-0 px-0 pt-4 font-weight-normal">總計</th>
-                    <td class="text-right border-0 px-0 pt-4">NT${{cartTotal}}</td>
-                  </tr>
-                  <tr>
-                    <th scope="row" class="border-0 px-0 pt-0 pb-4 font-weight-normal">Payment</th>
-                    <td class="text-right border-0 px-0 pt-0 pb-4">ApplePay</td>
+                    <td class="text-right border-0 px-0 pt-4">NT${{cartTotal | money}}</td>
                   </tr>
                 </tbody>
               </table>
-              <div class="d-flex justify-content-between mt-4">
+              <div v-if="!couponPercent" class="d-flex justify-content-between mt-4">
                 <p class="mb-0 h4 font-weight-bold">Total</p>
-                <p class="mb-0 h4 font-weight-bold">NT${{  Math.ceil(cartTotal*couponPercent/100) }}</p>
+                <p class="mb-0 h4 font-weight-bold">NT${{cartTotal | money}}</p>
+              </div>
+              <div v-else class="d-flex justify-content-between mt-4">
+                <p class="mb-0 h4 font-weight-bold">Total</p>
+                <p class="mb-0 h4 font-weight-bold">NT${{  Math.ceil(cartTotal*couponPercent/100) | money }}</p>
               </div>
             </div>
           </div>
@@ -260,6 +260,9 @@ export default {
           this.$router.push('/orders')
         }
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '訂單送出失敗', 'danger')
       })
     }
   },

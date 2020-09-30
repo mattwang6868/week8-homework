@@ -34,13 +34,12 @@
                 </a>
                 <div class="card-body p-0">
                   <h4 class="mb-0 mt-3"><a href="#" class=" text-dark" @click.prevent="goPage(item)">{{item.title}}</a></h4>
-                  <p class="card-text mb-0"> 售價 {{item.price}} <span class="text-muted "> 原價 <del>{{item.origin_price}}</del></span></p>
+                  <p class="card-text mb-0"> 售價 {{item.price | money}} <span class="text-muted "> 原價 <del>{{item.origin_price | money}}</del></span></p>
                   <p class="text-muted mt-3"></p>
                 </div>
               </div>
             </div>
           </div>
-          <Pagination :pages = "pagination" @update = "getProducts"></Pagination>
         </div>
       </div>
     </div>
@@ -49,13 +48,8 @@
 
 <script>
 // /* global $ */
-import Pagination from '@/components/Pagination.vue'
 
 export default {
-  name: 'Products',
-  components: {
-    Pagination
-  },
   data () {
     return {
       isLoading: false,
@@ -73,6 +67,12 @@ export default {
         this.products = res.data.data
         this.pagination = res.data.meta.pagination
         this.isLoading = false
+      }).catch((error) => {
+        if (error.response.request.status === 404) {
+          this.$bus.$emit('message:push', `${error.response.request.status} 找不到頁面`, 'danger')
+        } else {
+          this.$bus.$emit('message:push', `${error.response.request.status}${error.response.data.message}`, 'danger')
+        }
       })
     },
     getCategory () {
@@ -95,8 +95,22 @@ export default {
             })
             this.categories = result
             this.isLoading = false
+          }).catch((error) => {
+            this.isLoading = false
+            if (error.response.request.status === 404) {
+              this.$bus.$emit('message:push', `${error.response.request.status} 無法顯示產品分類`, 'danger')
+            } else {
+              this.$bus.$emit('message:push', `${error.response.request.status} 無法顯示產品分類`, 'danger')
+            }
           })
         })
+      }).catch((error) => {
+        this.isLoading = false
+        if (error.response.request.status === 404) {
+          this.$bus.$emit('message:push', `${error.response.request.status} 無法顯示產品分類`, 'danger')
+        } else {
+          this.$bus.$emit('message:push', `${error.response.request.status} 無法顯示產品分類`, 'danger')
+        }
       })
     },
     chooseCategory (categoryName) {
@@ -110,6 +124,12 @@ export default {
             }
           })
           this.pagination.total_pages = Math.ceil(this.products.length / 25)
+        }).catch((error) => {
+          if (error.response.request.status === 404) {
+            this.$bus.$emit('message:push', `${error.response.request.status} 找不到頁面`, 'danger')
+          } else {
+            this.$bus.$emit('message:push', `${error.response.request.status} 找不到頁面`, 'danger')
+          }
         })
         this.isLoading = false
       })

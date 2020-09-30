@@ -18,7 +18,7 @@
                 {{ item.quantity }} / {{ item.product.unit }}
               </td>
               <td class="align-middle">
-                {{ item.product.price }}
+                {{ item.product.price |money }}
               </td>
             </tr>
           </tbody>
@@ -28,7 +28,7 @@
                 總計
               </td>
               <td class="text-right">
-                {{ order.amount }}
+                {{ Math.round(order.amount) | money}}
               </td>
             </tr>
           </tfoot>
@@ -111,7 +111,6 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    console.log(this.$route)
     this.orderId = id
     this.getDetail(id)
   }

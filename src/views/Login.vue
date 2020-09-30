@@ -43,7 +43,6 @@ export default {
       const loginApi = `${process.env.VUE_APP_APIPATH}/api/auth/login`
       const api = this.user
       this.$http.post(loginApi, api).then(res => {
-        console.log(res)
         const myToken = res.data.token
         const expired = res.data.expired
         document.cookie = `hexHomeToken=${myToken}; expires=${new Date(expired * 1000)}; `
@@ -51,9 +50,9 @@ export default {
         this.$router.push('admin')
         this.isLoading = false
       })
-        .catch(function (err) {
-          console.log('錯誤', err)
-          this.$bus.$emit('message:push', `登入失敗惹，好糗Σ( ° △ °|||)︴${err}`, 'danger')
+        .catch((error) => {
+          this.isLoading = false
+          this.$bus.$emit('message:push', `登入失敗，系統資訊: ${error.response.data.message}`, 'danger')
         })
     },
     signout () {

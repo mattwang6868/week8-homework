@@ -69,15 +69,14 @@
 
 <script>
 import Pagination from '@/components/Pagination.vue'
-import CouponsModal from '@/components/CouponsModal.vue'
-import DeleteCouponsModal from '@/components/DeleteCouponsModal.vue'
+import CouponsModal from '@/components/backend/CouponsModal.vue'
+import DeleteCouponsModal from '@/components/backend/DeleteCouponsModal.vue'
 import jQuery from 'jquery'
 const $ = jQuery
 
 export default {
   data () {
     return {
-      token: '',
       isLoading: false,
       coupons: [],
       pagination: {},

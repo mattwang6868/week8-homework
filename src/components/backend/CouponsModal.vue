@@ -84,9 +84,6 @@ export default {
         })
       }
     }
-  },
-  created () {
-
   }
 }
 </script>

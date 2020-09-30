@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div>
     <div class="position-relative">
       <div class="position-absolute" style="top:0; bottom:0; left:0; right:0;
       background-image: url(https://images.unsplash.com/photo-1525201548942-d8732f6617a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=60);
@@ -118,7 +118,7 @@
         <div class="col-md-4 m-auto text-center">
           <h4 class="mt-4">音樂錄製</h4>
           <p class="text-muted">827 music studio 提供簡易Demo錄製混音<br>留下屬於你自己的歌曲</p>
-          <button href="#" class="btn btn-outline-dark" @click="goRecorginPage()">了解更多</button>
+          <button href="#" class="btn btn-outline-dark" @click="goPage('recording')">了解更多</button>
         </div>
       </div>
       <div class="row flex-row-reverse justify-content-between mt-4">
@@ -128,7 +128,7 @@
         <div class="col-md-4 m-auto text-center">
           <h4 class="mt-4">吉他課程</h4>
           <p class="text-muted">827 music studio 一對一吉他教學<br>為您量身打造專屬課程</p>
-          <button href="#" class="btn btn-outline-dark" @click="goGuitarLessonPage()">了解更多</button>
+          <button href="#" class="btn btn-outline-dark" @click="goPage('lesson')">了解更多</button>
         </div>
       </div>
     </div>
@@ -175,16 +175,12 @@
 <script>
 
 export default {
-  name: 'HomePage',
   data () {
     return {}
   },
   methods: {
-    goRecorginPage () {
-      this.$router.push('/recording')
-    },
-    goGuitarLessonPage () {
-      this.$router.push('/lesson')
+    goPage (params) {
+      this.$router.push(`/${params}`)
     },
     goProductPage (id) {
       this.$route.params.id = id

@@ -7,11 +7,17 @@
       background-position: center center; opacity: 0.3;"></div>
       <div class="container d-flex flex-column" style="min-height: 80vh;">
         <div class="row justify-content-center my-auto">
-          <div class="col-md-4 text-center">
+          <div class="col-md-4 text-center" v-if="order.paid">
             <h1 class="text-dark font-weight-bolder">付款成功</h1>
             <div class="mt-5" >
-            <button class="btn btn-secondary rounded-0 w-50" @click="goPage()">繼 續 逛 逛</button>
+              <button class="btn btn-secondary rounded-0 w-50" @click="goPage('products')">繼 續 逛 逛</button>
+            </div>
           </div>
+          <div class="col-md-4 text-center" v-else>
+            <h1 class="text-dark font-weight-bolder">付款失敗</h1>
+            <div class="mt-5" >
+              <button class="btn btn-secondary rounded-0 w-50" @click="goPage('orders')">再試一次</button>
+            </div>
           </div>
         </div>
       </div>
@@ -37,15 +43,17 @@ export default {
       this.$http.get(url).then(res => {
         this.order = res.data.data
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '無法取得訂單資訊，請重新登入再次嘗試', 'danger')
       })
     },
-    goPage () {
-      this.$router.push('/products')
+    goPage (params) {
+      this.$router.push(`/${params}`)
     }
   },
   created () {
     const id = this.$route.params.id
-    console.log(id)
     this.orderId = id
     this.getDetail(id)
   }

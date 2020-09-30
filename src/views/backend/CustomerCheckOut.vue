@@ -3,13 +3,14 @@
     <loading :active.sync="isLoading"></loading>
     <h2>用戶訂單列表</h2>
     <div class="mt-5 row justify-content-center">
-      <div class="col-md-6">
+      <div class="col-md-8">
         <table class="table">
           <thead>
             <tr>
               <th width="200px">購買時間</th>
               <th width="200px">購買方式</th>
               <th width="250px">商品列表</th>
+              <th width="180px">數量</th>
               <th width="180px">使用優惠卷</th>
               <th width="120px">應付金額</th>
               <th width="200px">付款狀態</th>
@@ -25,11 +26,15 @@
                   {{item.payment}}
               </td>
               <td>
-                <ul class="list-unstyled">
-                  <li v-for="(product, i) in item.products" :key="i">
+                <ul class="list-unstyled" v-for="(product, i) in item.products" :key="i">
+                  <li>
                     {{ product.product.title }}
-                    數量：{{ product.quantity }}{{ product.product.unit }}
                   </li>
+                </ul>
+              </td>
+              <td>
+                <ul class="list-unstyled" v-for="(product, i) in item.products" :key="i">
+                  <li>{{ product.quantity }}{{ product.product.unit }}</li>
                 </ul>
               </td>
               <td class="align-middle" >
@@ -37,7 +42,7 @@
                   <span v-else>否</span>
               </td>
               <td class="align-middle" >
-                  {{item.amount}}
+                  {{Math.round(item.amount) | money}}
               </td>
               <td class="align-middle" >
                   <strong v-if="!item.paid">未付款</strong>
@@ -62,9 +67,6 @@ export default {
   data () {
     return {
       isLoading: false,
-      order: {
-        user: {}
-      },
       orders: [],
       orderId: ''
     }

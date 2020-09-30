@@ -28,22 +28,28 @@
         </div>
         <div class="col-md-5">
           <h2 class="font-weight-bold h1 mb-1">{{product.title}}</h2>
-          <p class="mb-0 text-muted text-right"><del>{{product.origin_price}}</del></p>
-          <p class="h4 font-weight-bold text-right">{{product.price}}</p>
+          <p class="mb-0 text-muted text-right"><del>{{ Math.floor(product.origin_price) | money}}</del></p>
+          <p class="h4  text-right">{{ Math.floor(product.price) | money}}</p>
           <div class="d-flex align-items-center">
-            <div class="input-group my-3 mr-2 bg-light rounded">
-              <div class="input-group-prepend">
-                <button class="btn btn-outline-dark border-0 py-2" type="button" id="button-addon1" :disabled="num === 1" @click="updateNum('minus')">
-                  <i class="fas fa-minus"></i>
-                </button>
+              <div class="input-group my-3 mr-2 bg-light rounded col-md-6">
+                <div class="input-group-prepend">
+                  <button class="btn btn-outline-dark border-0 py-2" type="button" id="button-addon1" :disabled="num === 1" @click="updateNum('minus')">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                </div>
+                <input type="text" class="form-control border-0 text-center my-auto shadow-none bg-light" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"  :value="num" @keyup.enter="quantityUpdate($event.target.value,item.product.id )">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-dark border-0 py-2" type="button" id="button-addon2" @click="updateNum( 'plus' )">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                </div>
               </div>
-              <input type="text" class="form-control border-0 text-center my-auto shadow-none bg-light" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"  :value="num" @keyup.enter="quantityUpdate($event.target.value,item.product.id )">
-              <div class="input-group-append">
-                <button class="btn btn-outline-dark border-0 py-2" type="button" id="button-addon2" @click="updateNum( 'plus' )">
-                  <i class="fas fa-plus"></i>
-                </button>
-              </div>
+              <div class="col-md-6 d-flex ">
+                <p class="h5 mb-0 text-left font-weight-bolder my-auto">小記</p>
+                <p class="h3 mb-0 text-left font-weight-bolder ml-auto">{{product.price*num | money}}</p>
             </div>
+          </div>
+          <div>
             <button type="button" class="btn btn-dark btn-block py-2" @click="modalAddToCart(product.id)">
               <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="status.loadingItem == product.id"></span>
               加入購物車
@@ -78,11 +84,8 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      isLoading: false,
-      isActive: false,
       product: {},
       imageUrl: {},
-      cart: {},
       num: 1,
       status: {
         loadingItem: ''
@@ -116,13 +119,12 @@ export default {
         this.$bus.$emit('message:push', '已加入購物車', 'success')
       }).catch((error) => {
         this.status.loadingItem = ''
-        console.log(error.response.data.errors)
-        this.$bus.$emit('message:push', `加入失敗惹，好糗Σ( ° △ °|||)︴${error.response.data.errors}`, 'danger')
+        this.$bus.$emit('message:push', `加入失敗，${error.response.data.errors}`, 'danger')
       })
     }
   },
   computed: {
-    ...mapGetters(['cartlength'])
+    ...mapGetters(['cartlength', 'isLoading'])
   },
   created () {
     this.$store.dispatch('updateLoading', true)
@@ -132,6 +134,13 @@ export default {
         this.product = res.data.data
         this.imageUrl = res.data.data.imageUrl
         this.$store.dispatch('updateLoading', false)
+      }).catch((error) => {
+        this.$store.dispatch('updateLoading', false)
+        if (error.response.request.status === 404) {
+          this.$bus.$emit('message:push', `${error.response.request.status} 找不到頁面`, 'danger')
+        } else {
+          this.$bus.$emit('message:push', `${error.response.request.status}${error.response.data.message}`, 'danger')
+        }
       })
   }
 }

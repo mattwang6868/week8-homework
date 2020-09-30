@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group">
                             <label for="content">說明內容</label>
-                            <textarea type="text" class="form-control" id="content" rows="3" placeholder="請輸入說明內容"
+                            <textarea type="text" class="form-control" id="content" rows="5" placeholder="請輸入說明內容"
                                 v-model="tempProduct.content"></textarea>
                         </div>
                         <div class="form-group">
@@ -101,13 +101,19 @@ export default {
     updateProduct () {
       if (this.isNew === 'edit') {
         const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/product/${this.tempProduct.id}`
-        this.$http.patch(url, this.tempProduct).then(res => {
+        this.$http.patch(url, this.tempProduct).then(() => {
           this.$emit('update')
+          this.$bus.$emit('message:push', '更新資訊成功', 'success')
+        }).catch(() => {
+          this.$bus.$emit('message:push', '更新資訊失敗', 'danger')
         })
       } else if (this.isNew === 'new') {
         const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/product`
-        this.$http.post(url, this.tempProduct).then(res => {
+        this.$http.post(url, this.tempProduct).then(() => {
           this.$emit('update')
+          this.$bus.$emit('message:push', '新增成功', 'success')
+        }).catch(() => {
+          this.$bus.$emit('message:push', '新增失敗', 'danger')
         })
       }
     },
@@ -126,11 +132,10 @@ export default {
           this.tempProduct.imageUrl.push(res.data.data.path)
         }
       }).catch(() => {
-        console.log('上傳不可超過 2 MB')
         this.status.fileUploading = false
+        this.$bus.$emit('message:push', '上傳不可超過 2 MB', 'danger')
       })
     }
-  },
-  created () {}
+  }
 }
 </script>

@@ -3,11 +3,11 @@
     <h2>這是後台</h2>
     <router-link to="/admin/products">後台產品列表</router-link> |
     <router-link to="/admin/coupons">優惠卷列表</router-link> |
-    <router-link to="/admin/orders">訂單列表</router-link> |
+    <router-link to="/admin/orders">後台訂單列表</router-link> |
     <router-link to="/admin/customer_orders">模擬下單系統</router-link> |
     <router-link to="/admin/customer_checkout">模擬用戶訂單列表</router-link> |
     <router-link to="/admin/storages">圖片列表</router-link> |
-    <router-view :token="token" V-if ="checkSuccess" />
+    <router-view V-if ="checkSuccess" />
   </div>
 
 </template>
@@ -28,7 +28,7 @@ export default {
       this.$http.post(api, { api_token: this.token }).then(res => {
         this.checkSuccess = true
       }).catch(error => {
-        console.log(error)
+        this.$bus.$emit('message:push', `登入失敗，系統資訊: ${error.response.data.message}`, 'danger')
         this.$router.push('/login')
       })
     }

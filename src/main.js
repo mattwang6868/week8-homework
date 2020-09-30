@@ -17,6 +17,8 @@ import { ValidationObserver, ValidationProvider, configure, localize, extend } f
 import * as rules from 'vee-validate/dist/rules' // 規則檔案（ex: email...）
 import zhTW from 'vee-validate/dist/locale/zh_TW.json' // 語系檔案
 
+import currencyFilter from './filter/currency'
+
 import store from './store'
 // Bus
 Vue.prototype.$bus = new Vue()
@@ -28,6 +30,7 @@ Vue.use(VueAxios, axios)
 Vue.component('Loading', Loading)
 Vue.component('ValidationProvider', ValidationProvider)
 Vue.component('ValidationObserver', ValidationObserver)
+Vue.filter('money', currencyFilter)
 
 // vee-validate
 Object.keys(rules).forEach((rule) => {

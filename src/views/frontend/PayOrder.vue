@@ -18,7 +18,7 @@
                 {{ item.quantity }} / {{ item.product.unit }}
               </td>
               <td class="align-middle">
-                NT${{ item.product.price }}
+                NT${{ item.product.price | money }}
               </td>
             </tr>
           </tbody>
@@ -28,7 +28,7 @@
                 總計
               </td>
               <td class="text-right">
-               NT$ {{ order.amount }}
+               NT$ {{ Math.round(order.amount) | money }}
               </td>
             </tr>
           </tfoot>
@@ -107,6 +107,9 @@ export default {
           this.$router.push(`/checkoutsuccess/${this.orderId}`)
           this.isLoading = false
         }
+      }).catch(() => {
+        this.$router.push(`/checkoutsuccess/${this.orderId}`)
+        this.isLoading = false
       })
     }
   },

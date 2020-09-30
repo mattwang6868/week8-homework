@@ -52,8 +52,9 @@ export default new Vuex.Store({
     },
     cartlength (state) {
       return state.cartlength
+    },
+    isLoading (state) {
+      return state.isLoading
     }
-  },
-  modules: {
   }
 })

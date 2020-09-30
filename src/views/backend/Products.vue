@@ -33,10 +33,10 @@
                     <td>{{ item.category }}</td>
                     <td>{{ item.title }}</td>
                     <td class="text-right">
-                        {{ item.origin_price }}
+                        {{ item.origin_price | money }}
                     </td>
                     <td class="text-right">
-                        {{ item.price }}
+                        {{ item.price | money }}
                     </td>
                     <td>
                         <span v-if="item.enabled" class="text-success">啟用</span>
@@ -70,8 +70,8 @@
 <script>
 /* global $ */
 import Pagination from '@/components/Pagination.vue'
-import Modal from '@/components/Modal.vue'
-import DeleteModal from '@/components/DeleteModal.vue'
+import Modal from '@/components/backend/Modal.vue'
+import DeleteModal from '@/components/backend/DeleteModal.vue'
 
 export default {
   components: {
@@ -87,7 +87,6 @@ export default {
       tempProduct: {
         imageUrl: []
       },
-      token: '',
       adjustment: '',
       loadingBtn: '',
       status: {
@@ -150,6 +149,9 @@ export default {
           $('#productModal').modal('hide')
           this.isLoading = false
         }
+      }).catch(() => {
+        this.$bus.$emit('message:push', '取得產品清單失敗', 'danger')
+        this.isLoading = false
       })
     }
   },

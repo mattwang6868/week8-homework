@@ -4,7 +4,7 @@
             <div class="modal-content ">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">訂單詳情</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"  @click="goPage()">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
@@ -27,18 +27,18 @@
                       </td>
                       <td class="border-0 align-middle" style="max-width: 160px;">
                         <div class="input-group ">
-                          <div class="input-group-prepend">
+                          <!-- <div class="input-group-prepend">
                             <button class="btn btn-outline-dark border-0 py-2" type="button" id="button-addon1" :disabled="order.products[ i -1 ].quantity === 1" @click="quantityUpdate(order.products[ i -1 ].quantity -1)">
                               <i class="fas fa-minus"></i>
                             </button>
-                          </div>
+                          </div> -->
                           <input type="text" class="form-control border-0 text-center my-auto shadow-none" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"
-                          v-model="order.products[ i -1 ].quantity" @keyup.enter="quantityUpdate($event.target.value)">
-                          <div class="input-group-append">
+                          v-model="order.products[ i -1 ].quantity" >
+                          <!-- <div class="input-group-append">
                             <button class="btn btn-outline-dark border-0 py-2" type="button" id="button-addon2"  @click="quantityUpdate(order.products[ i -1 ].quantity +1)">
                               <i class="fas fa-plus"></i>
                             </button>
-                          </div>
+                          </div> -->
                         </div>
                       </td>
                       <td class="border-0 align-middle"><p class="mb-0 ml-auto">{{order.products[ i -1 ].product.price}}</p></td>
@@ -54,7 +54,7 @@
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-danger" data-dismiss="modal" @click="update()">更新訂單</button>
+                  <!-- <button type="button" class="btn btn-danger" data-dismiss="modal" @click="update()">更新訂單</button> -->
                   <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="goPage()">Close</button>
                 </div>
           </div>
@@ -107,7 +107,6 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    console.log(this.$route)
     this.orderId = id
     this.getDetail(id)
   }

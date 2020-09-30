@@ -18,8 +18,8 @@
                     <div class="d-flex mt-auto flex-column">
                         <div v-if="!item.price">{{item.origin_price}}</div>
                         <div v-else class="d-flex align-items-baseline justify-content-between">
-                            <del class="text-info">原價{{item.origin_price}}</del>
-                            <div class="font-weight-bolder h5 text-danger">現在只要{{item.price}}</div>
+                            <del class="text-info">原價{{item.origin_price | money}}</del>
+                            <div class="font-weight-bolder h5 text-danger">現在只要{{item.price | money}}</div>
                         </div>
                     </div>
 
@@ -89,10 +89,10 @@
                           {{item.product.unit}}
                       </td>
                       <td class="align-middle text-right">
-                          {{item.product.price}}
+                          {{item.product.price | money}}
                       </td>
                       <td class="align-middle text-right">
-                          {{item.product.price*item.quantity}}
+                          {{item.product.price*item.quantity | money}}
                       </td>
                   </tr>
               </tbody>
@@ -102,7 +102,7 @@
                       總計
                     </td>
                     <td class="text-right" >
-                      {{cartTotal}}
+                      {{cartTotal | money}}
                     </td>
                   </tr>
                   <tr >
@@ -122,7 +122,7 @@
                       折扣價
                     </td>
                     <td class="text-right text-success">
-                      {{ cartTotal*((100-couponPercent)/100) }}
+                      {{ cartTotal*((100-couponPercent)/100) | money}}
                     </td>
                   </tr>
                 </tfoot>
@@ -236,7 +236,7 @@
 
 <script>
 import jQuery from 'jquery'
-import DetailModal from '@/components/DetailModal.vue'
+import DetailModal from '@/components/backend/DetailModal.vue'
 import Pagination from '@/components/Pagination.vue'
 const $ = jQuery
 
