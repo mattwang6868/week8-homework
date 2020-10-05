@@ -11,7 +11,7 @@
           </ul>
         </div>
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end align-items-start text-white">
-          <div class="mb-md-0 mb-1">
+          <div class="mb-md-0 mb-1 text-left">
             <p class="mb-0">02-3456-7890</p>
             <p class="mb-0">service@mail.com</p>
           </div>

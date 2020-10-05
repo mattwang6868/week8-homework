@@ -27,9 +27,9 @@
           </div>
         </div>
         <div class="col-md-5">
-          <h2 class="font-weight-bold h1 mb-1">{{product.title}}</h2>
-          <p class="mb-0 text-muted text-right"><del>{{ Math.floor(product.origin_price) | money}}</del></p>
-          <p class="h4  text-right">{{ Math.floor(product.price) | money}}</p>
+          <h2 class="font-weight-bold h1 mb-1 text-left" >{{product.title}}</h2>
+          <p  class="mb-0 text-muted text-right pr-2">原價 <del>{{ Math.floor(product.origin_price) | money}}</del></p>
+          <p  class="h4  text-right pr-2">售價 {{ Math.floor(product.price) | money}}</p>
           <div class="d-flex align-items-center">
               <div class="input-group my-3 mr-2 bg-light rounded col-md-6">
                 <div class="input-group-prepend">

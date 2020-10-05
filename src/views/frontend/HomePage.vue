@@ -1,10 +1,10 @@
 <template>
   <div>
-    <div class="position-relative">
+    <div class="position-relative" style="height:300px">
       <div class="position-absolute" style="top:0; bottom:0; left:0; right:0;
-      background-image: url(https://images.unsplash.com/photo-1525201548942-d8732f6617a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=60);
+      background-image: url(https://images.unsplash.com/photo-1525201548942-d8732f6617a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=30);
       background-position: center center; opacity: 0.3;"></div>
-      <div class="container d-flex flex-column" style="min-height: 100vh;">
+      <div class="container d-flex flex-column position-absolute" style="left: 50%; transform: translate(-50%, -70%); top: 50%;">
         <div class="row justify-content-center my-auto">
           <div class="col-md-4 text-center">
             <h2 class="h1">827 Music Studio</h2>
@@ -66,7 +66,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <div class="bg-light mt-5">
       <div class="container">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
@@ -137,31 +137,31 @@
       <h3>熱銷樂器</h3>
       <div class="row d-flex justify-content-center">
         <div class="col-md-4 ">
-          <div class="card m-auto rounded-0 bg-light " style="width: 18rem;">
+          <div class="card m-auto rounded-0 bg-light ">
             <img src="https://images.unsplash.com/photo-1580745089072-032cbde08507?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjF9&auto=format&fit=crop&w=334&q=80" class="card-img-top" alt="">
             <div class="card-body">
               <h5 class="card-title">Taylor Acoustic Guitar</h5>
-              <p class="card-text">NT$18000</p>
+              <p class="card-text">NT$18,000</p>
               <button class="btn btn-outline-dark" @click="goProductPage('LcqIUGf0KHNwOWdhtg2rHPeqzU7juEMuIx2YZVPnT536IUMVJSCec0K1ciO7cCht')">了解更多</button>
             </div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card m-auto rounded-0  bg-light " style="width: 18rem;">
+          <div class="card m-auto rounded-0  bg-light ">
             <img src="https://images.unsplash.com/photo-1520166012956-add9ba0835cb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" class="card-img-top" alt="">
             <div class="card-body">
               <h5 class="card-title">Fender Electric Guitar</h5>
-              <p class="card-text">NT$30000</p>
+              <p class="card-text">NT$30,000</p>
               <button  class="btn btn-outline-dark" @click="goProductPage('JAiHqyWnAXZPOq6Hr3Lz1Td9vFOef0dlUVvNOFMt12QIfIfJcnRITIiC1dD5FlCw')">了解更多</button>
             </div>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="card m-auto rounded-0  bg-light " style="width: 18rem;">
+          <div class="card m-auto rounded-0  bg-light ">
             <img src="https://images.unsplash.com/photo-1588449668365-d15e397f6787?ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" class="card-img-top" alt="">
             <div class="card-body">
               <h5 class="card-title">Taylor Acoustic Guitar</h5>
-              <p class="card-text">NT$42000</p>
+              <p class="card-text">NT$42,000</p>
               <button  class="btn btn-outline-dark" @click="goProductPage('fFklve19i9glrAapiVAAiQr4KpyVngPDMBL7g8mzB9fLRMJxaQz41A67WoT2aTEZ')">了解更多</button>
             </div>
           </div>

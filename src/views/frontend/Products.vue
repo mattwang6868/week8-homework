@@ -26,15 +26,15 @@
           <div class="row" v-if="products">
             <div class="col-md-6"  v-for="(item,index) in products" :key="index.id">
               <div class="card border-0 mb-4 position-relative position-relative">
-                <div style="height: 150px; background-size: cover; background-position: center; "
-                    :style="{backgroundImage: `url(${item.imageUrl})`}">
-                </div>
+                <a href="#" class=" text-dark" @click.prevent="goPage(item)"><div style="height: 150px; background-size: cover; background-position: center; text-indent:101%; overflow:hidden; white-space:nowrap"
+                    :style="{backgroundImage: `url(${item.imageUrl})`}">{{item.title}}
+                </div></a>
                 <a href="#" class="text-dark">
                   <i class="far fa-heart position-absolute" style="right: 16px; top: 16px"></i>
                 </a>
                 <div class="card-body p-0">
                   <h4 class="mb-0 mt-3"><a href="#" class=" text-dark" @click.prevent="goPage(item)">{{item.title}}</a></h4>
-                  <p class="card-text mb-0"> 售價 {{item.price | money}} <span class="text-muted "> 原價 <del>{{item.origin_price | money}}</del></span></p>
+                  <p class="card-text mb-0">  原價 <del class="text-muted ">{{item.origin_price | money}}</del> <span> 售價 {{item.price | money}} </span></p>
                   <p class="text-muted mt-3"></p>
                 </div>
               </div>
