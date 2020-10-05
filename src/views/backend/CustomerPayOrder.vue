@@ -96,6 +96,9 @@ export default {
       this.$http.get(url).then(res => {
         this.order = res.data.data
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '無法取得訂單付款資訊', 'danger')
       })
     },
     payOrder () {
@@ -106,6 +109,9 @@ export default {
           this.getDetail(this.orderId)
           this.isLoading = false
         }
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '無法付款', 'danger')
       })
     }
   },

@@ -78,6 +78,9 @@ export default {
       this.$http.get(url).then(res => {
         this.orders = res.data.data
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '無法取得訂單列表', 'danger')
       })
     },
     goPage (item) {

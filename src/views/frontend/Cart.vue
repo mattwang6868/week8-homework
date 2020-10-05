@@ -17,7 +17,7 @@
               </thead>
               <tbody v-if="cart.length">
                 <tr class="border-bottom border-top" v-for="item in cart" :key="item.product.id">
-                  <th scope="row" class="border-0 px-0 font-weight-normal py-4">
+                  <th scope="row" class="border-0 px-0 font-weight-normal py-4 text-left">
                     <img :src="item.product.imageUrl[0]"  alt="" style="width: 72px; height: 72px; object-fit: cover;">
                     <p class="mb-0 font-weight-bold ml-3 d-inline-block">{{item.product.title}}</p>
                   </th>
@@ -222,6 +222,9 @@ export default {
         this.$http.patch(url, cart).then(res => {
           this.$store.dispatch('getCart')
           this.isLoading = false
+        }).catch(() => {
+          this.isLoading = false
+          this.$bus.$emit('message:push', '更改數量失敗', 'danger')
         })
       }
     },
@@ -233,6 +236,9 @@ export default {
         this.$store.dispatch('getCart')
         this.$bus.$emit('message:push', '刪除成功', 'success')
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '產品刪除失敗', 'danger')
       })
     },
     searchCoupon () {

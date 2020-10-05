@@ -120,6 +120,9 @@ export default {
         this.storages = response.data.data
         this.pagination = response.data.meta.pagination
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '無法取得圖片', 'danger')
       })
     },
     openModel (item) {
@@ -136,6 +139,9 @@ export default {
           'success')
         this.isLoading = false
         this.getData()
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '刪除失敗，請再試一次', 'danger')
       })
     }
   }

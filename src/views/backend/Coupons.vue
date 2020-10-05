@@ -107,6 +107,8 @@ export default {
             this.tempCoupon = res.data.data
             $('#couponModal').modal('show')
             this.loadingBtn = ''
+          }).catch(() => {
+            this.$bus.$emit('message:push', '無法開啟Modal', 'danger')
           })
           break
         case 'delete':
@@ -115,6 +117,8 @@ export default {
             this.tempCoupon = res.data.data
             $('#delCouponModal').modal('show')
             this.loadingBtn = ''
+          }).catch(() => {
+            this.$bus.$emit('message:push', '無法開啟Modal', 'danger')
           })
           break
         default:
@@ -138,6 +142,9 @@ export default {
           $('#couponModal').modal('hide')
           this.isLoading = false
         }
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '無法取得優惠卷列表', 'danger')
       })
     }
   },

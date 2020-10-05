@@ -66,7 +66,6 @@ export default {
   },
   created () {
     this.isLoading = true
-    // simulate AJAX
     setTimeout(() => {
       this.isLoading = false
     }, 1000)

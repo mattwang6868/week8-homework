@@ -115,6 +115,9 @@ export default {
             $('#productModal').modal('show')
             this.loadingBtn = ''
             this.isLoading = false
+          }).catch(() => {
+            this.isLoading = false
+            this.$bus.$emit('message:push', '無法取得產品資料', 'danger')
           })
           break
         case 'delete':
@@ -123,6 +126,9 @@ export default {
             this.tempProduct = res.data.data
             $('#delProductModal').modal('show')
             this.isLoading = false
+          }).catch(() => {
+            this.isLoading = false
+            this.$bus.$emit('message:push', '刪除失敗，請再試一次', 'danger')
           })
           break
         default:

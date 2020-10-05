@@ -93,6 +93,9 @@ export default {
         this.orders = res.data.data
         this.pagination = res.data.meta.pagination
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '取得訂單列表失敗', 'danger')
       })
     },
     getDetailed (id) {

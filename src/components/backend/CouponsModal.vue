@@ -74,6 +74,10 @@ export default {
         const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/coupon/${this.tempCoupon.id}`
         this.$http.patch(url, this.tempCoupon).then(res => {
           this.$emit('update')
+          this.$bus.$emit('message:push', '刪除成功', 'success')
+        }).catch(() => {
+          this.isLoading = false
+          this.$bus.$emit('message:push', '刪除失敗', 'danger')
         })
       } else if (this.isNew === 'new') {
         const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/admin/ec/coupon`
@@ -81,6 +85,10 @@ export default {
         console.log(this.tempCoupon.deadline_at)
         this.$http.post(url, this.tempCoupon).then(res => {
           this.$emit('update')
+          this.$bus.$emit('message:push', '新增成功', 'success')
+        }).catch(() => {
+          this.isLoading = false
+          this.$bus.$emit('message:push', '新增失敗', 'danger')
         })
       }
     }

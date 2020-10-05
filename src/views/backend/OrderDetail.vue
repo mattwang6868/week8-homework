@@ -93,6 +93,9 @@ export default {
         this.order = res.data.data
         this.productsLength = res.data.data.products.length
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '取得訂單詳情失敗', 'danger')
       })
     },
     quantityUpdate () {

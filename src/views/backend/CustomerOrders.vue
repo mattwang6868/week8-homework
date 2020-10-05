@@ -283,6 +283,9 @@ export default {
         this.products = res.data.data
         this.pagination = res.data.meta.pagination
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '無法取得產品列表', 'danger')
       })
     },
     getCart () {
@@ -295,6 +298,9 @@ export default {
           this.cartTotal += item.product.price * item.quantity
         })
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '無法取得購物車資訊', 'danger')
       })
     },
     searchCoupon () {
@@ -321,6 +327,9 @@ export default {
         $('#DetailModal').modal('show')
         this.status.loadingItem = ''
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '無法取得產品詳細資訊', 'danger')
       })
     },
     addToCart (id) {
@@ -358,6 +367,9 @@ export default {
         this.cartTotal = 0
         this.$bus.$emit('message:push', '刪除成功', 'success')
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '刪除失敗', 'danger')
       })
     },
     removeCartItem (id) {
@@ -368,6 +380,9 @@ export default {
         this.getCart()
         this.$bus.$emit('message:push', '刪除成功', 'success')
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '刪除失敗', 'danger')
       })
     },
     quantityUpdate (num, id) {
@@ -382,6 +397,9 @@ export default {
         this.$http.patch(url, cart).then(res => {
           this.getCart()
           this.isLoading = false
+        }).catch(() => {
+          this.isLoading = false
+          this.$bus.$emit('message:push', '更改數量失敗', 'danger')
         })
       }
     },
@@ -398,6 +416,9 @@ export default {
           this.$router.push('/admin/customer_checkout')
         }
         this.isLoading = false
+      }).catch(() => {
+        this.isLoading = false
+        this.$bus.$emit('message:push', '無法送出訂單', 'danger')
       })
     }
 
