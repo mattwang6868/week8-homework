@@ -27,26 +27,26 @@
           </div>
         </div>
         <div class="col-md-5">
-          <h2 class="font-weight-bold h1 mb-1 text-left" >{{product.title}}</h2>
-          <p  class="mb-0 text-muted text-right pr-2">原價 <del>{{ Math.floor(product.origin_price) | money}}</del></p>
-          <p  class="h4  text-right pr-2">售價 {{ Math.floor(product.price) | money}}</p>
+          <h2 class="font-weight-bold mb-1 text-md-left text-center" >{{product.title}}</h2>
+          <p  class="mb-0 text-muted text-right ">原價 <del>{{ Math.floor(product.origin_price) | money}}</del></p>
+          <p  class="h4  text-right ">售價 {{ Math.floor(product.price) | money}}</p>
           <div class="d-flex align-items-center">
-              <div class="input-group my-3 mr-2 bg-light rounded col-md-6">
+              <div class="input-group my-3 bg-light rounded col-md-6">
                 <div class="input-group-prepend">
-                  <button class="btn btn-outline-dark border-0 py-2" type="button" id="button-addon1" :disabled="num === 1" @click="updateNum('minus')">
+                  <button class="btn btn-outline-dark border-0" type="button" id="button-addon1" :disabled="num === 1" @click="updateNum('minus')">
                     <i class="fas fa-minus"></i>
                   </button>
                 </div>
                 <input type="text" class="form-control border-0 text-center my-auto shadow-none bg-light" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1"  :value="num" @keyup.enter="quantityUpdate($event.target.value,item.product.id )">
                 <div class="input-group-append">
-                  <button class="btn btn-outline-dark border-0 py-2" type="button" id="button-addon2" @click="updateNum( 'plus' )">
+                  <button class="btn btn-outline-dark border-0" type="button" id="button-addon2" @click="updateNum( 'plus' )">
                     <i class="fas fa-plus"></i>
                   </button>
                 </div>
               </div>
-              <div class="col-md-6 d-flex ">
+              <div class="col-md-6 d-flex pr-0">
                 <p class="h5 mb-0 text-left font-weight-bolder my-auto">小記</p>
-                <p class="h3 mb-0 text-left font-weight-bolder ml-auto">{{product.price*num | money}}</p>
+                <p class="h4 mb-0 text-left font-weight-bolder ml-auto align-self-center">{{product.price*num | money}}</p>
             </div>
           </div>
           <div>

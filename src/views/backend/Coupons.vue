@@ -83,7 +83,6 @@ export default {
       tempCoupon: {},
       adjustment: '',
       loadingBtn: ''
-
     }
   },
   components: {

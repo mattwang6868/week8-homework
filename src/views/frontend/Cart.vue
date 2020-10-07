@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
-    <div class="container">
+    <div class="container" v-if="cart.length">
       <div class="mt-3">
         <h3 class="mt-3 mb-4">購物車列表</h3>
         <div class="row">
@@ -186,6 +186,24 @@
         </div>
       </div>
     </div>
+    <div v-else>
+      <div class="position-relative" style="height:300px">
+      <div class="position-absolute" style="top:0; bottom:0; left:0; right:0;
+      background-image: url(https://images.unsplash.com/photo-1525201548942-d8732f6617a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=30);
+      background-position: center center; opacity: 0.3;"></div>
+      <div class="container d-flex flex-column position-absolute" style="left: 50%; transform: translate(-50%, -40%); top: 50%;">
+        <div class="row justify-content-center my-auto">
+          <div class="col-md-4 text-center">
+            <i class="fas fa-shopping-cart fa-7x"></i>
+            <h1 class="h3 my-3">您的購物車沒有商品</h1>
+            <button class="btn btn-outline-dark mb-5" @click="goShopping()">
+              去購物
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
 </template>
 
@@ -275,6 +293,9 @@ export default {
         this.isLoading = false
         this.$bus.$emit('message:push', '訂單送出失敗', 'danger')
       })
+    },
+    goShopping () {
+      this.$router.push('/products')
     }
   },
   computed: {
@@ -287,6 +308,7 @@ export default {
   },
   created () {
     this.getCart()
+    console.log(this.cart)
   }
 }
 </script>

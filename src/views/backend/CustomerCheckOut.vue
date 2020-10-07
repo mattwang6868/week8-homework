@@ -14,7 +14,7 @@
               <th width="180px">使用優惠卷</th>
               <th width="120px">應付金額</th>
               <th width="200px">付款狀態</th>
-              <th width="200px">去付款</th>
+              <th width="200px">結帳</th>
             </tr>
           </thead>
           <tbody  v-if="orders.length">
