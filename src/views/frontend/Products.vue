@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-md-4">
           <div class="accordion border border-bottom border-top-0 border-left-0 border-right-0 mb-3" id="accordionExample">
-            <div class="card border-0" v-for="(item,index) in categories" :key="index.id">
+            <div class="card border-0" v-for="item in categories" :key="item.id">
               <div class="card-header px-0 py-4 bg-white border border-bottom-0 border-top border-left-0 border-right-0" id="headingOne" data-toggle="collapse" data-target="#collapseOne">
                 <div class="d-flex justify-content-between align-items-center">
                   <button class="btn rounded-0  w-100 py-3" @click="chooseCategory(item)">
@@ -24,13 +24,13 @@
         </div>
         <div class="col-md-8">
           <div class="row" v-if="products">
-            <div class="col-md-6"  v-for="(item,index) in products" :key="index.id">
+            <div class="col-md-6"  v-for="item in products" :key="item.id">
               <div class="card border-0 mb-4 position-relative position-relative">
                 <a href="#" class=" text-dark" @click.prevent="goPage(item)"><div style="height: 150px; background-size: cover; background-position: center; text-indent:101%; overflow:hidden; white-space:nowrap"
                     :style="{backgroundImage: `url(${item.imageUrl})`}">{{item.title}}
                 </div></a>
-                <a href="#" class="text-dark">
-                  <i class="far fa-heart position-absolute" style="right: 16px; top: 16px"></i>
+                <a href="#" class="text-danger">
+                  <i class="far fa-heart position-absolute" style="right: 16px; bottom: 60px" @click.prevent="addToFavorite(item.id)"></i>
                 </a>
                 <div class="card-body p-0">
                   <h4 class="mb-0 mt-3"><a href="#" class=" text-dark" @click.prevent="goPage(item)">{{item.title}}</a></h4>
@@ -59,12 +59,11 @@ export default {
     }
   },
   methods: {
-    getProducts (num) {
+    getProducts (num = 1) {
       this.isLoading = true
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/products?page=${num}`
       this.$http.get(url).then(res => {
         this.products = res.data.data
-        this.pagination = res.data.meta.pagination
         this.isLoading = false
       }).catch((error) => {
         if (error.response.request.status === 404) {
@@ -133,8 +132,29 @@ export default {
         })
       })
     },
+    addToFavorite (id) {
+      console.log(id)
+      this.isLoading = true
+      const A = this.favorite.find((item) => {
+        return item === id
+      })
+      console.log(A)
+      if (A === undefined) {
+        this.$store.dispatch('addToFavorite', id)
+      } else {
+        this.$bus.$emit('message:push', '此商品已加入我的最愛', 'danger')
+      }
+      setTimeout(() => {
+        this.isLoading = false
+      }, 1000)
+    },
     goPage (item) {
       this.$router.push(`/detail/${item.id}`)
+    }
+  },
+  computed: {
+    favorite () {
+      return this.$store.state.favorite
     }
   },
   created () {

@@ -50,8 +50,8 @@
             </div>
           </div>
           <div>
-            <button type="button" class="btn btn-dark btn-block py-2" @click="modalAddToCart(product.id)">
-              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="status.loadingItem == product.id"></span>
+            <button type="button" class="btn btn-dark btn-block py-2" @click="modalAddToCart(product.id)" :disabled = "status.loadingItem == product.id">
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if = "status.loadingItem == product.id"></span>
               加入購物車
             </button>
           </div>

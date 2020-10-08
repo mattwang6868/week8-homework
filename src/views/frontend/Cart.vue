@@ -257,11 +257,11 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_UUID}/ec/shopping/${id}`
       this.$http.delete(url).then(res => {
         this.$store.dispatch('getCart')
+        this.isLoading = false
         this.$bus.$emit('message:push', '刪除成功', 'success')
-        this.isLoading = false
       }).catch(() => {
-        this.isLoading = false
         this.$bus.$emit('message:push', '產品刪除失敗', 'danger')
+        this.isLoading = false
       })
     },
     searchCoupon () {

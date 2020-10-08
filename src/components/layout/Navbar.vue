@@ -27,6 +27,9 @@
             <li class="nav-item">
               <router-link class="nav-link text-white " to="/orders">我的訂單</router-link>
             </li>
+            <li class="nav-item">
+              <router-link class="nav-link text-white " to="/favorite">我的最愛<span class="badge badge-pill badge-info position-relative" style="top:-3px;right:-5px;">{{favoritelength}}</span></router-link>
+            </li>
           </ul>
         </div>
         </nav>
@@ -49,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['cart', 'cartlength'])
+    ...mapGetters(['cart', 'cartlength', 'favorite', 'favoritelength'])
   },
   created () {
     this.$store.dispatch('getCart')

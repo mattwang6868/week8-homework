@@ -9,7 +9,10 @@ export default new Vuex.Store({
     isLoading: false,
     cart: {},
     cartTotal: 0,
-    cartlength: '0'
+    cartlength: '0',
+    favorite: JSON.parse(localStorage.getItem('listData')) || [],
+    favoriteList: [],
+    favoritelength: JSON.parse(localStorage.getItem('listData')).length || '0'
   },
   actions: {
     updateLoading (context, status) {
@@ -25,6 +28,15 @@ export default new Vuex.Store({
         context.commit('CART_LENGTH', res.data.data.length)
         context.commit('LOADING', false)
       })
+    },
+    addToFavorite (context, item) {
+      context.commit('FAVORITE', item)
+    },
+    getFavoriteList (context, item) {
+      context.commit('FAVORITE_LIST', item)
+    },
+    deleteFavorite (context, item) {
+      context.commit('DELETE_FAVORITE', item)
     }
   },
   mutations: {
@@ -44,6 +56,25 @@ export default new Vuex.Store({
       payload.forEach((item) => {
         state.cartTotal += item.product.price * item.quantity
       })
+    },
+    FAVORITE (state, payload) {
+      state.favorite.push(payload)
+      localStorage.setItem('listData', JSON.stringify(state.favorite))
+      state.favoritelength = JSON.parse(localStorage.getItem('listData')).length
+    },
+    FAVORITE_LIST (state, payload) {
+      state.favoriteList = payload.filter((item) => {
+        return state.favorite.indexOf(item.id) > -1
+      })
+    },
+    DELETE_FAVORITE (state, payload) {
+      console.log(payload)
+      const favoriteid = state.favorite.indexOf(payload)
+      if (favoriteid !== -1) {
+        state.favorite.splice(favoriteid, 1)
+      }
+      localStorage.setItem('listData', JSON.stringify(state.favorite))
+      state.favoritelength = JSON.parse(localStorage.getItem('listData')).length
     }
   },
   getters: {
@@ -52,6 +83,12 @@ export default new Vuex.Store({
     },
     cartlength (state) {
       return state.cartlength
+    },
+    favorite (state) {
+      return state.favorite
+    },
+    favoritelength (state) {
+      return state.favoritelength
     },
     isLoading (state) {
       return state.isLoading

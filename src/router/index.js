@@ -56,6 +56,11 @@ const routes = [
         path: 'lesson',
         name: 'Lesson',
         component: () => import('../views/frontend/LessonPage.vue')
+      },
+      {
+        path: 'favorite',
+        name: 'Favorite',
+        component: () => import('../views/frontend/Favorite.vue')
       }
     ]
   },
