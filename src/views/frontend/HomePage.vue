@@ -66,7 +66,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
     <div class="bg-light mt-5">
       <div class="container">
         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">

@@ -3,7 +3,7 @@
     <loading :active.sync="isLoading"></loading>
     <h2>用戶訂單列表</h2>
     <div class="mt-5 row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-md-10">
         <table class="table">
           <thead>
             <tr>

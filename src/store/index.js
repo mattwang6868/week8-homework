@@ -53,6 +53,7 @@ export default new Vuex.Store({
       state.cartlength = payload
     },
     CART_TOTAL (state, payload) {
+      state.cartTotal = 0
       payload.forEach((item) => {
         state.cartTotal += item.product.price * item.quantity
       })

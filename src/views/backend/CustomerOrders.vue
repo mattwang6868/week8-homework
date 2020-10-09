@@ -40,7 +40,7 @@
     </div>
       <!-- 購物車頁面 -->
       <div class="my-5 row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-lg-6">
           <div class="text-right mb-3">
               <button type="button" class="btn btn-outline-danger btn-sm" @click="removeAllCartItem()">
                 <i class="far fa-trash-alt"></i> 刪除所有品項
@@ -97,35 +97,59 @@
                   </tr>
               </tbody>
               <tfoot>
-                  <tr>
-                    <td colspan="5" class="text-right">
-                      總計
-                    </td>
-                    <td class="text-right" >
-                      {{cartTotal | money}}
-                    </td>
-                  </tr>
-                  <tr >
-                    <td colspan="6">
-                      <div class="input-group mb-3 input-group-sm">
-                        <input v-model="coupon_code" type="text" class="form-control" placeholder="請輸入優惠碼">
-                        <div class="input-group-append">
-                          <button class="btn btn-outline-secondary" type="button" @click="searchCoupon">
-                            套用優惠碼
-                          </button>
-                        </div>
+                <tr>
+                  <td colspan="5" class="text-right">
+                    商品金額
+                  </td>
+                  <td class="text-right" >
+                    {{ cartTotal }}
+                  </td>
+                </tr>
+                <tr  v-if="couponPercent">
+                  <td colspan="5" class="text-right text-success">
+                    折扣價
+                  </td>
+                  <td class="text-right text-success">
+                    {{ Math.floor(cartTotal*((100-couponPercent)/100)) | money}}
+                  </td>
+                </tr>
+                <tr  v-else>
+                  <td colspan="5" class="text-right text-success">
+                    折扣價
+                  </td>
+                  <td class="text-right text-success">
+                    {{ Math.floor(cartTotal*couponPercent) | money }}
+                  </td>
+                </tr>
+                <tr v-if="!couponPercent">
+                  <td colspan="5" class="text-right">
+                    總計
+                  </td>
+                  <td class="text-right" >
+                    {{ cartTotal }}
+                  </td>
+                </tr>
+                <tr v-else>
+                  <td colspan="5" class="text-right">
+                    總計
+                  </td>
+                  <td class="text-right" >
+                    {{ cartTotal-(Math.floor(cartTotal*(100-couponPercent)/100)) | money }}
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="6">
+                    <div class="input-group mb-3 input-group-sm">
+                      <input v-model="coupon_code" type="text" class="form-control" placeholder="請輸入優惠碼">
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" @click="searchCoupon">
+                          套用優惠碼
+                        </button>
                       </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td colspan="5" class="text-right text-success">
-                      折扣價
-                    </td>
-                    <td class="text-right text-success">
-                      {{ cartTotal*((100-couponPercent)/100) | money}}
-                    </td>
-                  </tr>
-                </tfoot>
+                    </div>
+                  </td>
+                </tr>
+              </tfoot>
           </table>
         </div>
       </div>

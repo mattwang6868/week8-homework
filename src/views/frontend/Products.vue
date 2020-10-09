@@ -141,6 +141,7 @@ export default {
       console.log(A)
       if (A === undefined) {
         this.$store.dispatch('addToFavorite', id)
+        this.$bus.$emit('message:push', '加入我的最愛!!', 'success')
       } else {
         this.$bus.$emit('message:push', '此商品已加入我的最愛', 'danger')
       }

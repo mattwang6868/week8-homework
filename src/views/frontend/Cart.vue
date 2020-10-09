@@ -57,7 +57,7 @@
           </div>
           <div class="col-md-4">
             <div class="border p-4 mb-4">
-              <h4 class="font-weight-bold mb-4">Order Detail</h4>
+              <h4 class="font-weight-bold mb-4">購物車明細</h4>
               <table class="table text-muted border-bottom">
                 <tbody>
                   <tr>
@@ -66,18 +66,18 @@
                   </tr>
                   <tr>
                     <th scope="row" class="border-0 px-0 font-weight-normal text-left">折扣金額</th>
-                    <td class="text-right border-0 px-0 " v-if="couponPercent">NT{{  Math.ceil(cartTotal*(100-couponPercent)/100) | money }}</td>
-                    <td class="text-right border-0 px-0 " v-else>NT{{  Math.ceil(cartTotal*couponPercent) | money }}</td>
+                    <td class="text-right border-0 px-0 " v-if="couponPercent">NT{{  Math.floor(cartTotal*(100-couponPercent)/100) | money }}</td>
+                    <td class="text-right border-0 px-0 " v-else>NT{{  Math.floor(cartTotal*couponPercent) | money }}</td>
                   </tr>
                 </tbody>
               </table>
               <div v-if="!couponPercent" class="d-flex justify-content-between mt-4">
-                <p class="mb-0 h4 font-weight-bold">Total</p>
+                <p class="mb-0 h4 font-weight-bold">總計</p>
                 <p class="mb-0 h4 font-weight-bold">NT{{cartTotal | money}}</p>
               </div>
               <div v-else class="d-flex justify-content-between mt-4">
-                <p class="mb-0 h4 font-weight-bold">Total</p>
-                <p class="mb-0 h4 font-weight-bold">NT{{  Math.ceil(cartTotal*couponPercent/100) | money }}</p>
+                <p class="mb-0 h4 font-weight-bold">總計</p>
+                <p class="mb-0 h4 font-weight-bold">NT{{  cartTotal-(Math.floor(cartTotal*(100-couponPercent)/100)) | money }}</p>
               </div>
             </div>
           </div>

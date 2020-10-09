@@ -111,7 +111,7 @@
                     <th scope="row" class="border-0 px-0 font-weight-normal text-left">結帳</th>
                     <td class="text-right border-0 px-0">
                       <div class="btn-group btn-group-sm">
-                      <button class="btn btn-outline-primary" :disabled="orders.paid" @click.prevent="goPage(orders)">去付款</button>
+                      <button class="btn btn-outline-dark" :disabled="orders.paid" @click.prevent="goPage(orders)">去付款</button>
                     </div>
                     </td>
                   </tr>
