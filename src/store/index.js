@@ -12,7 +12,7 @@ export default new Vuex.Store({
     cartlength: '0',
     favorite: JSON.parse(localStorage.getItem('listData')) || [],
     favoriteList: [],
-    favoritelength: JSON.parse(localStorage.getItem('listData')).length || '0'
+    favoritelength: '0'
   },
   actions: {
     updateLoading (context, status) {
@@ -61,7 +61,7 @@ export default new Vuex.Store({
     FAVORITE (state, payload) {
       state.favorite.push(payload)
       localStorage.setItem('listData', JSON.stringify(state.favorite))
-      state.favoritelength = JSON.parse(localStorage.getItem('listData')).length
+      state.favoritelength = (state.favorite).length
     },
     FAVORITE_LIST (state, payload) {
       state.favoriteList = payload.filter((item) => {
@@ -88,8 +88,8 @@ export default new Vuex.Store({
     favorite (state) {
       return state.favorite
     },
-    favoritelength (state) {
-      return state.favoritelength
+    favoriteList (state) {
+      return state.favoriteList
     },
     isLoading (state) {
       return state.isLoading

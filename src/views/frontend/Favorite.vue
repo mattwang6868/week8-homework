@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
-    <div v-if="!favoritelength">
+    <div v-if="!favoriteList.length">
       <div class="position-relative" style="height:300px">
       <div class="position-absolute" style="top:0; bottom:0; left:0; right:0;
       background-image: url(https://images.unsplash.com/photo-1525201548942-d8732f6617a0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=30);
@@ -88,9 +88,6 @@ export default {
     },
     favoriteList () {
       return this.$store.state.favoriteList
-    },
-    favoritelength () {
-      return this.$store.state.favoritelength
     }
   },
   created () {
